@@ -11,7 +11,7 @@ function ListItem(props) {
                 <img src={pokemon.img} />
             </Grid>
             <Grid item xs={12} sm={4}>
-                <Typography align="left">{pokemon.num} {pokemon.name}</Typography>
+                <Typography align="left">#{pokemon.num} {pokemon.name}</Typography>
             </Grid>
                 <Grid item xs={12} sm={4}>
                 <Typography align="left">Type: {pokemon.type.join(", ")}</Typography>

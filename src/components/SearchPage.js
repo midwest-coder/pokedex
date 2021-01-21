@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { PokeContext } from '../context/PokeContext'
 import { makeStyles } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import Card from '@material-ui/core/Card'
@@ -25,10 +26,6 @@ const useStyles = makeStyles({
         color: grey[100],
         padding: 10
     },
-    purpleButton: {
-        background: 'linear-gradient(45deg, #113C70, #3D0757)',
-        color: grey[100],
-    },
     pokemonList: {
         background: grey[900],
         color: grey[100],
@@ -36,14 +33,8 @@ const useStyles = makeStyles({
         marginBottom: 5,
         padding: 15,
     },
-    gameList: {
-        background: 'linear-gradient(45deg, #32a883, #3290a8)',
-        height: 500,
-        width: 'calc(100% + 18px)',
-        overflow: 'auto'
-    },
     list: {
-        background: 'linear-gradient(45deg, #113C70, #3D0757)',
+        background: 'linear-gradient(45deg, #32a89e, #113C70)',
         height: 500,
         width: 'calc(100% + 18px)',
         overflow: 'auto'
@@ -62,14 +53,18 @@ const useStyles = makeStyles({
     }
 })
 
-function SearchPage(props) {
+function SearchPage() {
+    const { pokemonList } = useContext(PokeContext)
     const classes = useStyles()
     const [searchResult, setSearchResult] = useState('')
-    const [focusedPokemon, setFocusedPokemon] = useState({})
+    const [focusedPokemon, setFocusedPokemon] = useState(null)
 
     const search = (value) => {
-        setFocusedPokemon(props.pokemon.find((e) => e.username === value.toLowerCase()))
         setSearchResult(value.toLowerCase())
+    }
+    
+    const setFocused = (value) => {
+        setFocusedPokemon(pokemonList.find((e) => e.num === value))
     }
 
   return (
@@ -77,7 +72,7 @@ function SearchPage(props) {
                 <TextField 
                     id="user-lookup" 
                     label="Username"
-                    placeholder="Type in user"
+                    placeholder="Type Pokemon"
                     type="text"
                     onInput={(e) => search(e.target.value)}
                     autoComplete="off"
@@ -90,9 +85,9 @@ function SearchPage(props) {
                         <div className={classes.hideScroll}>
                             <Card className={classes.list}>
                                 <ul className={classes.ul}>
-                                    {props.pokemonList.filter((pokemon) => pokemon.name.startsWith(searchResult.toLowerCase()))
+                                    {pokemonList.filter((pokemon) => pokemon.name.toLowerCase().startsWith(searchResult.toLowerCase()))
                                     .map((pokemon) => <li className={classes.li}>
-                                        <Button className={classes.button}>
+                                        <Button className={classes.button} onClick={() => setFocused(pokemon.num)}>
                                             <ListItem pokemon={pokemon}/>
                                         </Button>
                                         </li>)}
@@ -100,6 +95,7 @@ function SearchPage(props) {
                             </Card>
                         </div>
                     </Card>
+                    {/* <h1>{focusedPokemon != null ? focusedPokemon.name : ''}</h1> */}
         </Card>
   );
 }
