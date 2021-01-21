@@ -15,11 +15,12 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles()
   const [detailsPageActive, setDetailsPageActive] = useState(false)
+  const [focusedPokemon, setFocusedPokemon] = useState({})
 
   let content
   detailsPageActive ? 
-  content =  <DetailsPage detailsActive={setDetailsPageActive} /> :
-  content = <SearchPage detailsActive={setDetailsPageActive} />
+  content =  <DetailsPage pokemon={focusedPokemon} detailsActive={setDetailsPageActive} /> :
+  content = <SearchPage focusedPokemon={setFocusedPokemon} detailsActive={setDetailsPageActive} />
   return (
     <Container className={classes.container} fixed>
       {content}

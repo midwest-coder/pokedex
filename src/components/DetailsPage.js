@@ -29,10 +29,15 @@ function DetailsPage(props) {
   return (
         <Card className={classes.container}>
             <Card className={classes.detailsBox}>
-                <Grid container>
-
-                </Grid>
                 <Button className={classes.button} onClick={() => props.detailsActive(false)}>Back</Button>
+                <Grid container>
+                    <Grid item xs={12} sm={6}>
+                        <img src={props.pokemon.img} />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        {/* <h1>{props.pokemon.name}</h1> */}
+                    </Grid>
+                </Grid>
             </Card>
         </Card>
   );

@@ -65,14 +65,13 @@ function SearchPage(props) {
     const { pokemonList } = useContext(PokeContext)
     const classes = useStyles()
     const [searchResult, setSearchResult] = useState('')
-    const [focusedPokemon, setFocusedPokemon] = useState(null)
 
     const search = (value) => {
         setSearchResult(value.toLowerCase())
     }
     
     const setFocused = (value) => {
-        setFocusedPokemon(pokemonList.find((e) => e.num === value))
+        props.focusedPokemon(pokemonList.find((e) => e.num === value))
         props.detailsActive(true)
     }
 
