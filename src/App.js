@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
+import SearchPage from './components/SearchPage'
 import './App.css'
 
 const useStyles = makeStyles((theme) => ({
@@ -19,7 +20,6 @@ function App() {
         return res.json().then((data) => data)
         }).then((data) => {
           const { pokemon } = data
-          console.log(pokemon)
           setPokemonList(pokemon)
         })
   }, [])
@@ -28,7 +28,7 @@ function App() {
   let content
   pokemonList == null ?
   content = '' : 
-  content = <h1>{pokemonList[0].name}</h1>
+  content = <SearchPage pokemonList={pokemonList} />
   
 
   return (
