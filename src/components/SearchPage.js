@@ -77,7 +77,7 @@ function SearchPage(props) {
 
   return (
         <Card className={classes.card}>
-                                <Grid container spacing="1">
+                    <Grid container spacing="1">
                     <Grid item xs={12} sm={8}>
                         <Card className={classes.searchBox}>
                             <TextField 
