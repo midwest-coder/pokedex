@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import { PokeContext } from '../context/PokeContext'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import { grey } from '@material-ui/core/colors'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 
 const useStyles = makeStyles({
     button: {
@@ -40,6 +42,18 @@ const useStyles = makeStyles({
             fontSize: 17
         }
     },
+    evolutionBgLabel: {
+        background: 'black',
+        color: grey[100],
+        display: 'flex',
+        justifyContent: 'center',
+        padding: 20,
+        marginBottom: 5,
+        marginTop: 6,
+        '& h6':{
+            fontSize: 17
+        }
+    },
     evolutionBg: {
         background: 'black',
         color: grey[100],
@@ -56,45 +70,96 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'center',
         padding: 40
+    },
+    prevEvImgBg: {
+        background: 'linear-gradient(45deg, #d4950d, #e0e00b, #d9911e)',
+        display: 'flex',
+        justifyContent: 'center',
+        padding: 5
+    },
+    nextEvImgBg: {
+        background: 'linear-gradient(45deg, #bf0000, #b0355a, #460080)',
+        display: 'flex',
+        justifyContent: 'center',
+        padding: 5
+    },
+    evImg: {
+        height: 50
     }
 })
 
 function DetailsPage(props) {
     const classes = useStyles()
+    const { pokemonList } = useContext(PokeContext)
+    const [focusedPokemon, setFocusedPokemon] = useState(props.pokemon)
+
 
     let evolutionContent
-    props.pokemon.prev_evolution != null || props.pokemon.next_evolution != null ?
-    evolutionContent = <Grid container spacing="1">
+    focusedPokemon.prev_evolution != null || focusedPokemon.next_evolution != null ?
+    evolutionContent = <Grid container>
                             <Grid item>
-                                <Card className={classes.evolutionBg}>
+                                <Card className={classes.evolutionBgLabel}>
                                     <Typography align="right" variant="sub1">Evolutions</Typography>
                                 </Card>
                             </Grid>
-                            <Grid item>
-                                <Card className={classes.evolutionBg}>
-
-                                    </Card>
-                            </Grid>
+                                {
+                                    focusedPokemon.prev_evolution != null ?
+                                    focusedPokemon.prev_evolution.map((item) => {
+                                            const pokemon = pokemonList.find((pokemon)=> pokemon.num === item.num)
+                                            return  <Grid item>
+                                                        <Button onClick={() => {setFocusedPokemon(pokemonList.find((focused)=> focused.num === pokemon.num))}}>
+                                                            <Card className={classes.evolutionBg}>
+                                                                <Grid container>
+                                                                <Card className={classes.prevEvImgBg}>
+                                                                    <img src={pokemon.img} className={classes.evImg} />
+                                                                </Card>
+                                                                </Grid>
+                                                            </Card>
+                                                        </Button>
+                                                    </Grid>
+                                        })
+                                    :
+                                    ''
+                                }
+                                {
+                                    focusedPokemon.next_evolution != null ?
+                                    focusedPokemon.next_evolution.map((item) => {
+                                            const pokemon = pokemonList.find((pokemon)=> pokemon.num === item.num)
+                                            return <Grid item>
+                                                        <Button onClick={() => {setFocusedPokemon(pokemonList.find((focused)=> focused.num === pokemon.num))}}>
+                                                            <Card className={classes.evolutionBg}>
+                                                                <Grid container>
+                                                                <Card className={classes.nextEvImgBg}>
+                                                                    <img src={pokemon.img} className={classes.evImg} />
+                                                                </Card>
+                                                                </Grid>
+                                                            </Card>
+                                                        </Button>
+                                                    </Grid>
+                                        })
+                                    :
+                                    ''
+                                }
                         </Grid> :
     evolutionContent = ''
 
   return (
         <Card className={classes.container}>
             <Card className={classes.detailsBox}>
-                <Button className={classes.button} onClick={() => props.detailsActive(false)}>Back</Button>
+                <Button className={classes.button} onClick={() => props.detailsActive(false)}><ArrowBackIosIcon /> Back</Button>
                 <Grid container justify="center" spacing="5">
-                    <Grid item xs={12} sm={4}>
+                    <Grid item sm={12} md={4}>
                         <Card className={classes.detailsBg}>
                             <Card className={classes.imgBg}>
-                                <img src={props.pokemon.img} />
+                                <img src={focusedPokemon.img} />
                             </Card>
                         </Card>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item sm={12} md={6}>
                         <Card className={classes.detailsBg}>
                             <Grid container justify="center">
-                                <Typography variant="h5">{props.pokemon.name}</Typography>
-                                <Typography variant="sub1">#{props.pokemon.num}</Typography>
+                                <Typography variant="h5">{focusedPokemon.name}</Typography>
+                                <Typography variant="sub1">#{focusedPokemon.num}</Typography>
                                 <Grid container spacing="2">
                                     <Grid item>
                                     <Typography align="right" variant="h6">Type:</Typography>
@@ -103,10 +168,10 @@ function DetailsPage(props) {
                                     <Typography align="right" variant="h6">Weight:</Typography>
                                     </Grid>
                                     <Grid item>
-                                    <Typography align="left" variant="h6">{props.pokemon.type.join(", ")}</Typography>
-                                    <Typography align="left" variant="h6">{props.pokemon.weaknesses.join(", ")}</Typography>
-                                    <Typography align="left" variant="h6">{props.pokemon.height}</Typography>
-                                    <Typography align="left" variant="h6">{props.pokemon.weight}</Typography>
+                                    <Typography align="left" variant="h6">{focusedPokemon.type.join(", ")}</Typography>
+                                    <Typography align="left" variant="h6">{focusedPokemon.weaknesses.join(", ")}</Typography>
+                                    <Typography align="left" variant="h6">{focusedPokemon.height}</Typography>
+                                    <Typography align="left" variant="h6">{focusedPokemon.weight}</Typography>
                                     </Grid>
                                 </Grid>
                             </Grid>
