@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { PokeContext } from '../context/PokeContext'
 import { makeStyles } from '@material-ui/core/styles'
-import { grey, cyan, purple } from '@material-ui/core/colors'
+import { grey } from '@material-ui/core/colors'
 import Card from '@material-ui/core/Card'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -94,12 +94,12 @@ const checkFilters = (value) => {
     const pokeTypes = value.type
     const pokeWeaknesses = value.weaknesses
     let filterCheck = true
-    types.map((type) => {
+    types.forEach((type) => {
         if(type.checked && filterCheck) {
             filterCheck = pokeTypes.includes(type.name)
         }
         })
-    weaknesses.map((weakness) => {
+    weaknesses.forEach((weakness) => {
         if(weakness.checked && filterCheck) {
             // console.log(`${type.name} - ${value.name} : ${pokeTypes.includes(type.name)}`)
             filterCheck = pokeWeaknesses.includes(weakness.name)
@@ -127,8 +127,7 @@ const checkFilters = (value) => {
                     <div className={classes.hideScroll}>
                         <Card className={classes.list}>
                             <ul className={classes.ul}>
-                                {pokemonList.filter((pokemon) => pokemon.name.toLowerCase().startsWith(searchResult.toLowerCase()))
-                                .filter((pokemon) => checkFilters(pokemon))
+                                {pokemonList.filter((pokemon) => (pokemon.name.toLowerCase().startsWith(searchResult.toLowerCase()) && checkFilters(pokemon)))
                                 .map((pokemon) => <li className={classes.li}>
                                 <Button className={classes.button} onClick={() => setFocused(pokemon.num)}>
                                     <ListItem pokemon={pokemon}/>

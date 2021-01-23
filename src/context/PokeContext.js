@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from 'react'
 
 export const PokeContext = createContext()
 
-export default ({ children }) => {
+const Pokemon = ({ children }) => {
     const [pokemonList, setPokemonList] = useState([])
   
     useEffect(() => {
@@ -20,3 +20,5 @@ export default ({ children }) => {
         </PokeContext.Provider>
     )
 }
+
+export default Pokemon

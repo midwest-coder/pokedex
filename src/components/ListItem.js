@@ -8,7 +8,7 @@ function ListItem(props) {
     return (
         <Grid container>
             <Grid item xs={12} sm={4}>
-                <img src={pokemon.img} />
+                <img src={pokemon.img} alt=""/>
             </Grid>
             <Grid item xs={12} sm={4}>
                 <Typography align="left">#{pokemon.num} {pokemon.name}</Typography>

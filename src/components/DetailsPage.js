@@ -29,13 +29,6 @@ const useStyles = makeStyles({
         color: grey[100],
         display: 'flex',
         justifyContent: 'center',
-        padding: 40
-    },
-    detailsBg: {
-        background: 'black',
-        color: grey[100],
-        display: 'flex',
-        justifyContent: 'center',
         padding: 40,
         marginBottom: 5,
         '& h6':{
@@ -111,7 +104,7 @@ function DetailsPage(props) {
                                                             <Card className={classes.evolutionBg}>
                                                                 <Grid container>
                                                                 <Card className={classes.prevEvImgBg}>
-                                                                    <img src={pokemon.img} className={classes.evImg} />
+                                                                    <img src={pokemon.img} className={classes.evImg} alt="ev img"/>
                                                                 </Card>
                                                                 </Grid>
                                                             </Card>
@@ -130,7 +123,7 @@ function DetailsPage(props) {
                                                             <Card className={classes.evolutionBg}>
                                                                 <Grid container>
                                                                 <Card className={classes.nextEvImgBg}>
-                                                                    <img src={pokemon.img} className={classes.evImg} />
+                                                                    <img src={pokemon.img} className={classes.evImg} alt="ev img" />
                                                                 </Card>
                                                                 </Grid>
                                                             </Card>
@@ -151,7 +144,7 @@ function DetailsPage(props) {
                     <Grid item sm={12} md={4}>
                         <Card className={classes.detailsBg}>
                             <Card className={classes.imgBg}>
-                                <img src={focusedPokemon.img} />
+                                <img src={focusedPokemon.img}  alt="main img"/>
                             </Card>
                         </Card>
                     </Grid>
