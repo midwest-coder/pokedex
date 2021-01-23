@@ -3,17 +3,13 @@ import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 import DetailsPage from './components/DetailsPage'
 import SearchPage from './components/SearchPage'
+import { Typography } from '@material-ui/core'
 import './App.css'
-import logo from './images/logo.png'
 
 const useStyles = makeStyles((theme) => ({
   container: {
       background: 'linear-gradient(45deg, #113C70, #3D0757, #73200b)',
-      padding: 5,
-  },
-  logoBg: {
-    display: 'flex',
-    justifyContent: 'center',
+      padding: 5
   }
 }))
 
@@ -28,9 +24,7 @@ function App() {
   content = <SearchPage focusedPokemon={setFocusedPokemon} detailsActive={setDetailsPageActive} />
   return (
     <Container className={classes.container} fixed>
-      <Container className={classes.logoBg}>
-        <img src={logo} />
-      </Container>
+      <Typography variant="h1" align="center">Pokedex</Typography>
       {content}
     </Container>
   );
