@@ -15,7 +15,8 @@ const useStyles = makeStyles({
       // }
   },
   logo: {
-    color: 'white'
+    color: '#ad1538',
+    textShadow: '2px 2px black'
   }
 })
 
@@ -30,7 +31,7 @@ function App() {
   content = <SearchPage focusedPokemon={setFocusedPokemon} detailsActive={setDetailsPageActive} />
   return (
     <Container className={classes.container} fixed>
-      <Typography variant="h1" align="center" color="error">Pokedex</Typography>
+      <Typography variant="h1" align="center" className={classes.logo}>Pokedex</Typography>
       {content}
     </Container>
   );
