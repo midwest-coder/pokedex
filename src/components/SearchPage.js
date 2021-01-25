@@ -66,6 +66,7 @@ function SearchPage(props) {
     const [searchResult, setSearchResult] = useState('')
     const [types, setTypes] = useState([
         {name: "Normal", checked: false},{name: "Fire", checked: false}
+        ,{name: "Water", checked: false},{name: "Dark", checked: false}
     ,{name: "Grass", checked: false},{name: "Electric", checked: false}
     ,{name: "Ice", checked: false},{name: "Fighting", checked: false}
     ,{name: "Poison", checked: false},{name: "Ground", checked: false}
@@ -74,6 +75,7 @@ function SearchPage(props) {
     ,{name: "Ghost", checked: false},{name: "Dragon", checked: false}])
     const [weaknesses, setWeaknesses] = useState([
         {name: "Normal", checked: false},{name: "Fire", checked: false}
+        ,{name: "Water", checked: false},{name: "Dark", checked: false}
     ,{name: "Grass", checked: false},{name: "Electric", checked: false}
     ,{name: "Ice", checked: false},{name: "Fighting", checked: false}
     ,{name: "Poison", checked: false},{name: "Ground", checked: false}
